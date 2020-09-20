@@ -1,24 +1,26 @@
-package maze
+package util
 
 import (
 	"sync"
+
+	"yey007.github.io/software/goastar/maze"
 )
 
 //Stack is a basic stack implementation for cells which supports concurrency
 type Stack struct {
 	lock  sync.Mutex
-	slice []*Cell
+	slice []*maze.Cell
 }
 
 //Push adds an element to the top of the stack
-func (s *Stack) Push(c *Cell) {
+func (s *Stack) Push(c *maze.Cell) {
 	s.lock.Lock()
 	s.slice = append(s.slice, c)
 	s.lock.Unlock()
 }
 
 //Pop removes an element from the top of the stack and returns it
-func (s *Stack) Pop() *Cell {
+func (s *Stack) Pop() *maze.Cell {
 
 	s.lock.Lock()
 	l := len(s.slice) - 1
